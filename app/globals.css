@@ -1,0 +1,200 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --custom-hover-bg: oklch(44.6% 0.03 256.802);
+}
+
+
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', sans-serif;
+}
+
+.hero-slider-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-slider-wrapper {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.hero-slider-item {
+    min-width: 100%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    position: relative;
+}
+
+.hero-slider-navigation {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 1rem;
+}
+
+.hero-slider-dot {
+    width: 1rem;
+    height: 1rem;
+    background-color: #ffffff4d;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.hero-slider-dot.active {
+    background-color: white;
+}
+
+/* Styles for tab buttons */
+.tab-button.active {
+    color: #f7931e;
+    font-weight: bold;
+}
+.tab-fashion-button.active {
+    color: #f7931e;
+    font-weight: bold;
+}
+
+/* Styles for blog post card date overlay */
+.blog-date-overlay {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background-color: white;
+    color: black;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
+    text-align: center;
+    font-size: 0.875rem; /* text-sm */
+    line-height: 1;
+    font-weight: 600; /* font-semibold */
+}
+/* Custom styles for the price slider */
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 1rem;
+    height: 1rem;
+    background: #2563EB;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid white;
+    box-shadow: 0 0 0 2px #2563EB;
+}
+input[type="range"]::-moz-range-thumb {
+    width: 1rem;
+    height: 1rem;
+    background: #2563EB;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid white;
+    box-shadow: 0 0 0 2px #2563EB;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #252945;
+}
+::-webkit-scrollbar-thumb {
+    background: #4a4e74;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #8a74f9;
+}
+
+/* Style for the sidebar when it's open on mobile */
+.sidebar-open {
+    transform: translateX(0);
+}
+/* Active link style */
+.nav-link.active {
+    background-color: #313552;
+    color: #ffffff;
+}
+.text-custom-text{
+  color: #e0e0e0;
+}
+.bg-custom-surface {
+  background-color: #252945;
+}
+.text-custom-text-secondary{
+  color: #a0a0b0;
+}
+.bg-custom-card{
+  background-color: #313552;
+}
+.bg-custom-bg{
+  background-color: #1a1d2e;
+}
+.bg-custom-accent{
+  background-color:#8a74f9 ;
+}
+.hover\:bg-custom-hover:hover {
+  background-color: var(--custom-hover-bg);
+}
+
+.social-icon.facebook:hover {
+  color: #1877F2;
+}
+
+.social-icon.twitter:hover {
+  color: #1DA1F2;
+}
+
+.social-icon.instagram:hover {
+  color: #E4405F;
+}
+
+.social-icon.linkedin:hover {
+  color: #0A66C2;
+}
+
+.social-icon.youtube:hover {
+  color: #FF0000;
+}
+
+.social-icon.pinterest:hover {
+  color: #E60023;
+}
+
+.social-icon.snapchat:hover {
+  color: #FFFC00;
+}
+
+.social-icon.tiktok:hover {
+  color: #000000;
+}
+
+.social-icon.whatsapp:hover {
+  color: #25D366;
+}
+
+.social-icon.reddit:hover {
+  color: #FF4500;
+}
+
+@media (max-width: 480px) {
+  .hide-on-small-screen {
+    display: none !important;
+  }
+}
