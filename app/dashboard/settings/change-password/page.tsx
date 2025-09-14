@@ -49,7 +49,7 @@ const ChangePasswordPage: React.FC = () => {
       setCurrentPassword('');
       setNewPassword('');
       setConfirmNewPassword('');
-    } catch (err: any) {
+    } catch (err: error) {
       setError(err.message);
     }
   };
