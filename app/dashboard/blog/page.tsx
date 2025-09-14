@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
+
 import SearchInput from '../../../components/SearchInput';
 import BlogTable from '../../../components/BlogTable';
 import Pagination from '../../../components/Pagination';

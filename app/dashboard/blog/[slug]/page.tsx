@@ -35,7 +35,7 @@ const EditBlogPostPage: React.FC = () => {
         }
         const data: BlogPost = await response.json();
         setBlogPost(data);
-      } catch (err: any) {
+      } catch (err: Error) {
         setError(err.message);
       } finally {
         setLoading(false);
@@ -50,7 +50,7 @@ const EditBlogPostPage: React.FC = () => {
         }
         const data: string[] = await response.json();
         setCategories(data);
-      } catch (err: any) {
+      } catch (err: Error) {
         console.error('Error fetching categories:', err);
       }
     };
@@ -74,7 +74,7 @@ const EditBlogPostPage: React.FC = () => {
       }
       alert('Blog post updated successfully!');
       router.push('/dashboard/blog'); // Redirect back to the blog list
-    } catch (err: any) {
+    } catch (err: Error) {
       alert(`Error updating blog post: ${err.message}`);
     }
   };

@@ -131,6 +131,7 @@ export default function ProductsPage() {
       heroImage={heroSettings?.imageUrl || "/img/black-white-bedroom-with-red-accent.jpg"}
       subheading={heroSettings?.subheading || ""}
       buttonUrl={heroSettings?.buttonUrl || ""}
+      breadcrumbs={breadcrumbs}
     >
       {/* Top section with breadcrumbs, search, and sorting */}
       <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-6">

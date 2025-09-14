@@ -66,7 +66,7 @@ const Header = () => {
         }
         const data = await res.json();
         setSettings(data);
-      } catch (error: any) {
+      } catch (error: Error) {
         console.error('Error fetching header settings:', error);
         setError(error.message);
       } finally {
@@ -82,7 +82,7 @@ const Header = () => {
         }
         const data = await response.json();
         setCategories(data);
-      } catch (err: any) {
+      } catch (err: Error) {
         console.error('Error fetching categories:', err);
       }
     };
@@ -94,7 +94,7 @@ const Header = () => {
         if (data && data.data) {
           setSocialLinks(data.data);
         }
-      } catch (error) {
+      } catch (error: Error) {
         console.error('Error fetching social links:', error);
       }
     };
@@ -106,7 +106,7 @@ const Header = () => {
         if (data && data.data) {
           setMenuItems(data.data);
         }
-      } catch (error) {
+      } catch (error: Error) {
         console.error('Error fetching menu items:', error);
       }
     };

@@ -26,7 +26,7 @@ const EditProductPage: React.FC<EditProductPageProps> = ({ params }) => {
         }
         const data = await response.json();
         setProduct(data);
-      } catch (err: any) {
+      } catch (err: Error) {
         setError(err.message);
       } finally {
         setLoading(false);
@@ -54,7 +54,7 @@ const EditProductPage: React.FC<EditProductPageProps> = ({ params }) => {
       alert('Product updated successfully!');
       router.push('/dashboard/products'); // Redirect to products list
       return true;
-    } catch (err: any) {
+    } catch (err: Error) {
       setError(err.message);
       console.error(err);
       alert(err.message);

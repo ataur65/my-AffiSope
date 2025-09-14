@@ -2,6 +2,7 @@ import ProductPageTemplate from '@/components/ProductPageTemplate';
 import ProductDetailsView from '@/components/ProductDetailsView';
 import RelatedProducts from '@/components/RelatedProducts';
 import Reviews from '@/components/Reviews';
+
 import Link from 'next/link';
 
 async function getProduct(id) {
@@ -81,7 +82,7 @@ export default async function ProductDetailsPage(props) {
         heroImage="/img/bedroom-747525_1920.jpg"
         breadcrumbs={<nav className="text-sm mb-6 text-gray-600"><Link href="/" className="hover:underline">Home</Link> &gt; <Link href="/products" className="hover:underline">Products</Link></nav>}
       >
-        <p>We couldn't find the product you were looking for.</p>
+        <p>We couldn&apos;t find the product you were looking for.</p>
       </ProductPageTemplate>
     );
   }
@@ -125,6 +126,7 @@ export default async function ProductDetailsPage(props) {
       />
       <ProductDetailsView product={product} socialLinks={socialLinks} />
       <RelatedProducts items={relatedProducts} />
+      <Reviews />
     </ProductPageTemplate>
   );
 }

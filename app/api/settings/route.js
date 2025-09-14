@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const BACKEND_API_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-export async function GET(request) {
+export async function GET() {
   try {
     const response = await axios.get(`${BACKEND_API_URL}/api/settings`);
     return NextResponse.json(response.data);

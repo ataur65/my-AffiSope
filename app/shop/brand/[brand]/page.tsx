@@ -94,6 +94,7 @@ export default function ShopBrandPage() {
       heroImage={"/img/black-white-bedroom-with-red-accent.jpg"}
       subheading={`Browse our collection of ${brand}`}
       buttonUrl={"/"}
+      breadcrumbs={breadcrumbs}
     >
       {/* Top section with breadcrumbs, search, and sorting */}
       <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-6">

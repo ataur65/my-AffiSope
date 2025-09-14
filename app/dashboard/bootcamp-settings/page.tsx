@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -114,7 +115,7 @@ const BootcampSettingsPage = () => {
         />
         {settings[pageName].imageUrl && (
           <div className="mt-2">
-            <img src={settings[pageName].imageUrl} alt="Hero Image" className="max-w-xs h-auto rounded-md" />
+            <Image src={settings[pageName].imageUrl} alt="Hero Image" width={200} height={150} className="max-w-xs h-auto rounded-md" />
           </div>
         )}
       </div>

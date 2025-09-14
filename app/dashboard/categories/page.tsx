@@ -2,6 +2,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
 
 interface Category {
   name: string;
@@ -27,7 +28,7 @@ const CategoriesPage: React.FC = () => {
       if (data.length > 0) {
         setSelectedCategory(data[0].name);
       }
-    } catch (err: any) {
+    } catch (err: Error) {
       setError(err.message);
     } finally {
       setLoading(false);
@@ -85,7 +86,7 @@ const CategoriesPage: React.FC = () => {
       alert('Category image saved successfully.');
       fetchCategories();
       setSelectedFile(null);
-    } catch (err: any) {
+    } catch (err: Error) {
       console.error('Error saving category image:', err);
       alert(`Failed to save category image: ${err.message}`);
     }
@@ -104,7 +105,7 @@ const CategoriesPage: React.FC = () => {
       }
       alert(`Category image deleted successfully.`);
       fetchCategories();
-    } catch (err: any) {
+    } catch (err: Error) {
       console.error('Error deleting category image:', err);
       alert(`Failed to delete category image: ${err.message}`);
     }
@@ -166,7 +167,7 @@ const CategoriesPage: React.FC = () => {
                   <div className="flex justify-between items-center">
                       <div className="flex items-center">
                           {category.imageUrl ? (
-                              <img src={category.imageUrl.startsWith('http') ? category.imageUrl : `${process.env.NEXT_PUBLIC_API_BASE_URL}${category.imageUrl}`} alt={category.name} className="w-16 h-16 object-cover rounded-md mr-4" />
+                              <Image src={category.imageUrl.startsWith('http') ? category.imageUrl : `${process.env.NEXT_PUBLIC_API_BASE_URL}${category.imageUrl}`} alt={category.name} width={64} height={64} className="w-16 h-16 object-cover rounded-md mr-4" />
                           ) : (
                               <div className="w-16 h-16 bg-gray-700 rounded-md mr-4 flex items-center justify-center">
                                   <span className="text-xs text-gray-400">No Image</span>

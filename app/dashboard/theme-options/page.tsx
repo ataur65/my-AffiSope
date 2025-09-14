@@ -39,10 +39,10 @@ interface ThemeSettings {
   socialLinks: SocialLink[];
 }
 
-type SectionKeys = 'general' | 'headerSection' | 'heroSection' | 'megaDiscountSection' | 'clientLogosSection';
+type SectionKeys = 'general' | 'header' | 'hero' | 'megaDiscount' | 'clientLogos';
 
 const ThemeOptionsPage = () => {
-  const [activeTab, setActiveTab] = useState('general');
+  const [activeTab, setActiveTab] = useState<SectionKeys>('general');
   const [settings, setSettings] = useState<ThemeSettings | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -74,7 +74,7 @@ const ThemeOptionsPage = () => {
         }
         const data = await response.json();
         setSettings(data);
-      } catch (err: any) {
+      } catch (err: Error) {
         setError(err.message);
       } finally {
         setLoading(false);
@@ -142,7 +142,7 @@ const ThemeOptionsPage = () => {
         } else {
           throw new Error(data.message || 'File upload failed with no URL returned.');
         }
-      } catch (err: any) {
+      } catch (err: Error) {
         setError(err.message);
       }
     }
@@ -166,14 +166,7 @@ const ThemeOptionsPage = () => {
     }
   };
 
-  const handleSocialLinkChange = (e: React.ChangeEvent<HTMLInputElement>, field: keyof SocialLink) => {
-    const { value } = e.target;
-    if (editingSocialLink) {
-      setEditingSocialLink((prev) => (prev ? { ...prev, [field]: value } : null));
-    } else {
-      setNewSocialLinkData((prev) => ({ ...prev, [field]: value }));
-    }
-  };
+  
 
   const handleAddSlide = () => {
     if (settings) {
@@ -198,15 +191,7 @@ const ThemeOptionsPage = () => {
     }
   };
 
-  const handleAddSocialLink = () => {
-    if (settings) {
-      setSettings((prev) => (prev ? { ...prev, socialLinks: [...(prev.socialLinks || []), { ...newSocialLinkData, _id: undefined }] } : null));
-      setNewSocialLinkData({
-        platform: '',
-        url: '',
-      });
-    }
-  };
+  
 
   const handleEditSlide = (slide: HeroSlide) => {
     setEditingSlide(slide);
@@ -260,29 +245,9 @@ const ThemeOptionsPage = () => {
     }
   };
 
-  const handleEditSocialLink = (link: SocialLink) => {
-    setEditingSocialLink(link);
-    setNewSocialLinkData({
-      platform: '',
-      url: '',
-    });
-  };
+  
 
-  const handleUpdateSocialLink = () => {
-    if (settings && editingSocialLink) {
-      setSettings((prev) =>
-        prev
-          ? {
-              ...prev,
-              socialLinks: prev.socialLinks.map((link) =>
-                link._id === editingSocialLink._id ? editingSocialLink : link
-              ),
-            }
-          : null
-      );
-      setEditingSocialLink(null);
-    }
-  };
+  
 
   const handleDeleteSlide = (id: string) => {
     if (settings && confirm('Are you sure you want to delete this slide?')) {
@@ -311,19 +276,13 @@ const ThemeOptionsPage = () => {
               }
             : null
         );
-      } catch (err: any) {
+      } catch (err: Error) {
         setError(err.message);
       }
     }
   };
 
-  const handleDeleteSocialLink = (id: string) => {
-    if (settings && confirm('Are you sure you want to delete this social link?')) {
-      setSettings((prev) =>
-        prev ? { ...prev, socialLinks: prev.socialLinks.filter((link) => link._id !== id) } : null
-      );
-    }
-  };
+  
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -347,7 +306,7 @@ const ThemeOptionsPage = () => {
       }
 
       alert('Theme settings saved!');
-    } catch (err: any) {
+    } catch (err: Error) {
       setError(err.message);
     }
   };
@@ -436,7 +395,7 @@ const ThemeOptionsPage = () => {
                 onChange={(e) => handleFileChange(e, 'faviconUrl')}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-light-700 leading-tight focus:outline-none focus:shadow-outline"
               />
-              {settings.faviconUrl && <img src={settings.faviconUrl} alt="Favicon" className="mt-4 h-10 w-10" />}
+              {settings.faviconUrl && <Image src={settings.faviconUrl} alt="Favicon" width={40} height={40} className="mt-4 h-10 w-10" />}
             </div>
           </>
         )}
@@ -453,7 +412,7 @@ const ThemeOptionsPage = () => {
                 onChange={(e) => handleFileChange(e, 'headerLogoUrl')}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-light-700 leading-tight focus:outline-none focus:shadow-outline"
               />
-              {settings.headerLogoUrl && <img src={settings.headerLogoUrl || '/img/placeholder.jpg'} alt="Header Logo" className="mt-4 h-20" />}
+              {settings.headerLogoUrl && <Image src={settings.headerLogoUrl || '/img/placeholder.jpg'} alt="Header Logo" width={80} height={80} className="mt-4 h-20" />}
             </div>
             <div className="mb-4 ">
               <label htmlFor="headerLogoText" className="block text-light-700 text-sm font-bold mb-2">Logo Text:</label>

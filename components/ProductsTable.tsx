@@ -31,7 +31,7 @@ const ProductsTable: React.FC = () => {
         }
         const data = await response.json();
         setProducts(data.products || []);
-      } catch (err: any) {
+      } catch (err: Error) {
         setError(err.message);
       } finally {
         setLoading(false);
@@ -54,7 +54,7 @@ const ProductsTable: React.FC = () => {
         }
 
         setProducts(products.filter((product) => product._id !== id));
-      } catch (err: any) {
+      } catch (err: Error) {
         console.error(err);
         alert(err.message);
       }

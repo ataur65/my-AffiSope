@@ -34,7 +34,7 @@ const BlogCategoryPage: React.FC = () => {
         }
         const data: { blogPosts: BlogPost[]; currentPage: number; totalPages: number; totalBlogPosts: number } = await response.json();
         setBlogPosts(data.blogPosts);
-      } catch (err: any) {
+      } catch (err: Error) {
         setError(err.message);
       } finally {
         setLoading(false);

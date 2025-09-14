@@ -69,7 +69,7 @@ const BlogForm: React.FC<BlogFormProps> = ({ onSubmit, initialData, categories }
       };
 
       onSubmit(blogData);
-    } catch (error) {
+    } catch (error: Error) {
       console.error('An unexpected error occurred in handleSubmit:', error);
     }
   };

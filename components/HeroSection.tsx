@@ -31,7 +31,7 @@ const HeroSection = () => {
         }
         const data = await response.json();
         setSettings(data);
-      } catch (err: any) {
+      } catch (err: Error) {
         setError(err.message);
       } finally {
         setLoading(false);

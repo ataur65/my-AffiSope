@@ -7,6 +7,13 @@ import Image from 'next/image'; // Import Image component
 import { signOut } from 'next-auth/react';
 import { useState, useEffect } from 'react';
 
+interface MenuItem {
+  _id: string;
+  name: string;
+  page: string;
+  children?: MenuItem[];
+}
+
 interface Category {
   name: string;
   imageUrl: string | null;
@@ -18,7 +25,7 @@ interface MobileSidebarProps {
 
 const MobileSidebar: React.FC<MobileSidebarProps> = ({ onClose }) => {
   const pathname = usePathname();
-  const [menuItems, setMenuItems] = useState<any[]>([]); // Use any[] for now, can define a more specific interface later
+  const [menuItems, setMenuItems] = useState<MenuItem[]>([]); // Use any[] for now, can define a more specific interface later
   const [openSubmenus, setOpenSubmenus] = useState<string[]>([]); // To manage open/closed state of submenus
 
   useEffect(() => {
@@ -29,7 +36,7 @@ const MobileSidebar: React.FC<MobileSidebarProps> = ({ onClose }) => {
         if (data && data.data) {
           setMenuItems(data.data);
         }
-      } catch (error) {
+      } catch (error: Error) {
         console.error('Error fetching menu items:', error);
       }
     };
@@ -79,7 +86,7 @@ const MobileSidebar: React.FC<MobileSidebarProps> = ({ onClose }) => {
                     </button>
                     {openSubmenus.includes(item._id) && (
                       <ul className="pl-4 mt-2 space-y-1">
-                        {item.children.map((child: any) => (
+                        {item.children.map((child: MenuItem) => (
                           <li key={child._id} onClick={handleLinkClick}>
                             <Link href={child.page} className={`flex items-center px-3 py-2 text-sm font-medium rounded-md ${pathname === child.page ? 'bg-custom-card text-white' : 'text-custom-text-secondary hover:bg-custom-hover hover:text-white'}`}>
                               {child.name}

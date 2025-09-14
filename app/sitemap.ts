@@ -1,5 +1,15 @@
 import { MetadataRoute } from 'next'
 
+interface Product {
+  _id: string;
+  updatedAt?: string;
+}
+
+interface BlogPost {
+  slug: string;
+  date?: string;
+}
+
 const URL = 'http://localhost:3000';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -19,7 +29,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Fetch dynamic product routes
   const productsRes = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/products?limit=1000`);
   const productsData = await productsRes.json();
-  const productUrls = productsData.products.map((product: any) => ({
+  const productUrls = productsData.products.map((product: Product) => ({
     url: `${URL}/product/${product._id}`,
     lastModified: product.updatedAt || new Date(),
   }));
@@ -27,7 +37,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Fetch dynamic blog routes
   const blogsRes = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/blog?limit=1000`);
   const blogsData = await blogsRes.json();
-  const blogUrls = blogsData.blogPosts.map((post: any) => ({
+  const blogUrls = blogsData.blogPosts.map((post: BlogPost) => ({
     url: `${URL}/blog/${post.slug}`,
     lastModified: post.date || new Date(),
   }));

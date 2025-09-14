@@ -34,6 +34,8 @@ const TrendingFashionItems = ({ items }) => {
     setFilteredFashionProducts(products);
   }, [activeFashionCategory, activeBrand, items]);
 
+  
+
   const handleFashionTabClick = (category: string) => {
     setActiveFashionCategory(category);
     setActiveBrand('All'); // Reset brand filter when category changes
@@ -45,11 +47,34 @@ const TrendingFashionItems = ({ items }) => {
   };
 
     const uniqueBrands = items && Array.from(new Set(items.map(product => product.brand).filter(p => p))); // Get unique brands
+    const uniqueCategories = items && Array.from(new Set(items.map(product => product.category).filter(p => p))); // Get unique categories
 
   return (
     <section className="bg-gray-100 py-12">
       <div className="container mx-auto px-4">
         
+
+        {/* New Category Filter Section */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between mb-8">
+          <h3 className="text-xl font-bold mb-4 md:mb-0">Shop by Category</h3>
+          <div className="flex space-x-4 text-sm md:text-base">
+            <button
+              className={`tab-fashion-button ${activeFashionCategory === 'All' ? 'active text-[#f7931e]' : 'text-gray-600 hover:text-[#f7931e]'}`}
+              onClick={() => handleFashionTabClick('All')}
+            >
+              ALL CATEGORIES
+            </button>
+            {uniqueCategories.map((category) => (
+              <button
+                key={category}
+                className={`tab-fashion-button ${activeFashionCategory === category ? 'active text-[#f7931e]' : 'text-gray-600 hover:text-[#f7931e]'}`}
+                onClick={() => handleFashionTabClick(category)}
+              >
+                {category.toUpperCase()}
+              </button>
+            ))}
+          </div>
+        </div>
 
         {/* New Brand Filter Section */}
         <div className="flex flex-col md:flex-row md:items-center justify-between mb-8">

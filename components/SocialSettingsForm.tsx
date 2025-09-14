@@ -71,7 +71,7 @@ const SocialSettingsForm = () => {
     <div className="bg-white p-6 rounded-lg shadow-md">
       <h2 className="text-2xl font-bold mb-4">Social Media Links</h2>
       <div className="space-y-4">
-        {socialLinks.map((link, index) => (
+        {socialLinks.map((link) => (
           <div key={link._id} className="flex items-center justify-between bg-gray-100 p-3 rounded-lg">
             <div className="flex items-center">
               <FontAwesomeIcon icon={socialPlatforms.find(p => p.name === link.platform)?.icon} className="text-2xl mr-4" />

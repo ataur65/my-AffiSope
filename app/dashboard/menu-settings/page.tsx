@@ -22,7 +22,7 @@ const MenuSettingsPage = () => {
         if (data && data.data) {
           setMenuItems(data.data);
         }
-      } catch (error) {
+      } catch (error: Error) {
         console.error('Error fetching menu items:', error);
       }
     };
@@ -37,7 +37,7 @@ const MenuSettingsPage = () => {
         { name: 'Contact', path: '/contact' },
       ];
       setPages(availablePages);
-      setNewItem({ ...newItem, page: availablePages[0]?.path || '' });
+      setNewItem(prevNewItem => ({ ...prevNewItem, page: availablePages[0]?.path || '' }));
     };
 
     const fetchShopDepartments = async () => {
@@ -47,7 +47,7 @@ const MenuSettingsPage = () => {
         if (data) {
           setShopDepartments(data);
         }
-      } catch (error) {
+      } catch (error: Error) {
         console.error('Error fetching shop departments:', error);
       }
     };
@@ -59,7 +59,7 @@ const MenuSettingsPage = () => {
         if (data) {
           setCategories(data);
         }
-      } catch (error) {
+      } catch (error: Error) {
         console.error('Error fetching categories:', error);
       }
     };
@@ -71,7 +71,7 @@ const MenuSettingsPage = () => {
         if (data) {
           setBrands(data);
         }
-      } catch (error) {
+      } catch (error: Error) {
         console.error('Error fetching brands:', error);
       }
     };
@@ -96,7 +96,7 @@ const MenuSettingsPage = () => {
         const data = await res.json();
         setMenuItems([...menuItems, data.data]);
         setNewItem({ name: '', page: pages[0]?.path || '' });
-      } catch (error) {
+      } catch (error: Error) {
         console.error('Error adding menu item:', error);
       }
     }
@@ -122,7 +122,7 @@ const MenuSettingsPage = () => {
         if (subItemData === newSubItem) {
           setNewSubItem({ name: '', page: pages[0]?.path || '' });
         }
-      } catch (error) {
+      } catch (error: Error) {
         console.error('Error adding submenu item:', error);
       }
     }
@@ -136,7 +136,7 @@ const MenuSettingsPage = () => {
         }
       );
       setMenuItems(menuItems.filter((item) => item._id !== id));
-    } catch (error) {
+    } catch (error: Error) {
       console.error('Error deleting menu item:', error);
     }
   };
@@ -158,7 +158,7 @@ const MenuSettingsPage = () => {
 
       const data = await res.json();
       setMenuItems(menuItems.map(item => item._id === parentId ? data.data : item));
-    } catch (error) {
+    } catch (error: Error) {
       console.error('Error deleting submenu item:', error);
     }
   };
