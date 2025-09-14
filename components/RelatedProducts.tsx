@@ -1,17 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-
-interface Product {
-  _id: number;
-  category: string;
-  name: string;
-  price: string;
-  image: string;
-  rating: number;
-  originalPrice: string | null;
-  isSale: boolean;
-}
+import { Product } from '@/types';
 
 interface RelatedProductsProps {
   items: Product[];
@@ -24,8 +14,8 @@ const RelatedProducts: React.FC<RelatedProductsProps> = ({ items }) => {
             <h2 className="text-3xl font-bold text-center mb-8">Related Products</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
                 
-                {items.map((item, index) => (
-                    <div key={index} className="bg-white rounded-lg shadow-md p-4 flex flex-col items-center text-center group relative">
+                {items.map((item) => (
+                    <div key={item._id} className="bg-white rounded-lg shadow-md p-4 flex flex-col items-center text-center group relative">
 
                         {item.isSale && (
                             <div className="absolute top-0 left-0 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-br-lg">
@@ -34,9 +24,9 @@ const RelatedProducts: React.FC<RelatedProductsProps> = ({ items }) => {
                         )}
 
                         <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-80 transition-opacity duration-300">
-                            <button className="bg-[#f7931e] text-white text-sm font-semibold px-4 py-2 rounded-full hover:bg-orange-600 transition-colors">
+                            <Link href={item.url || `/product/${item._id}`} target={item.url ? "_blank" : "_self"} rel="noopener noreferrer" className="bg-[#f7931e] text-white text-sm font-semibold px-4 py-2 rounded-full hover:bg-orange-600 transition-colors">
                                 Buy Now
-                            </button>
+                            </Link>
                             <Link href={`/product/${item._id}`} className="bg-gray-700 text-white text-sm font-semibold px-4 py-2 rounded-full hover:bg-gray-600 transition-colors">
                                 Details
                             </Link>

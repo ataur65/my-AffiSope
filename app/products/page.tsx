@@ -6,17 +6,9 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-interface Product {
-  _id: string; // Changed from id: number to _id: string for MongoDB compatibility
-  category: string;
-  name: string;
-  price: string;
-  image: string;
-  rating: number;
-  originalPrice: string | null;
-  isSale: boolean;
-  url: string; // Added url property
-}
+import { Product } from '@/types';
+
+import { Product } from '@/types';
 
 interface BlogPost {
   _id: string;
@@ -238,7 +230,7 @@ export default function ProductsPage() {
               <div key={product._id} className="bg-white rounded-lg shadow-md p-4 flex flex-col items-center text-center group relative">
                 {/* Hover overlay with button and icons */}
                 <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-80 transition-opacity duration-300">
-                  <Link href={product.url} target="_blank" rel="noopener noreferrer" className="bg-[#f7931e] text-white text-sm font-semibold px-4 py-2 rounded-full hover:bg-orange-600 transition-colors">
+                  <Link href={product.url || `/product/${product._id}`} target={product.url ? "_blank" : "_self"} rel="noopener noreferrer" className="bg-[#f7931e] text-white text-sm font-semibold px-4 py-2 rounded-full hover:bg-orange-600 transition-colors">
                     Buy Now
                   </Link>
                   <Link href={`/product/${product._id}`} className="bg-gray-700 text-white text-sm font-semibold px-4 py-2 rounded-full hover:bg-gray-600 transition-colors">

@@ -5,22 +5,9 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { FacebookShareButton, TwitterShareButton, PinterestShareButton, WhatsappShareButton, FacebookIcon, TwitterIcon, PinterestIcon, WhatsappIcon } from 'react-share';
 import Reviews from './Reviews';
+import { Product } from '@/types';
 
-interface Product {
-  _id: string;
-  image: string;
-  name: string;
-  category: string;
-  rating: number;
-  isSale: boolean;
-  originalPrice?: number;
-  price: number;
-  shortDescription: string;
-  description: string;
-  url: string;
-  reviewCount: number;
-  gallery: string[];
-}
+import { Product } from '@/types';
 
 interface ProductDetailsViewProps {
   product: Product;

@@ -3,19 +3,9 @@ import React, { useEffect, useState } from 'react';
 import Table from './Table';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Product } from '@/types';
 
-interface Product {
-  _id: string;
-  name: string;
-  description: string;
-  price: number;
-  category: string;
-  image: string;
-  rating: number;
-  originalPrice?: number;
-  isSale: boolean;
-  createdAt: string;
-}
+import { Product } from '@/types';
 
 const ProductsTable: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);

@@ -1,20 +1,9 @@
 "use client"
 
 import { useEffect, useState } from 'react';
+import { Product } from '@/types';
 
-interface Product {
-  _id: string;
-  category: string;
-  name: string;
-  price: string;
-  image: string;
-  rating: number;
-  originalPrice: string | null;
-  isSale: boolean;
-  url: string;
-  shopDepartment?: string;
-  brand?: string;
-}
+import { Product } from '@/types';
 
 interface BlogPost {
   _id: string;

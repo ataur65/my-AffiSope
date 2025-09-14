@@ -1,9 +1,7 @@
 import { MetadataRoute } from 'next'
+import { Product } from '@/types';
 
-interface Product {
-  _id: string;
-  updatedAt?: string;
-}
+import { Product } from '@/types';
 
 interface BlogPost {
   slug: string;

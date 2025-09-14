@@ -1,14 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { Product } from '@/types';
 
-interface Product {
-  _id: string;
-  name: string;
-  description: string;
-  price: number;
-  image: string;
-}
+import { Product } from '@/types';
 
 interface BlogPost {
   _id: string;
@@ -37,8 +32,7 @@ async function searchAll(query: string): Promise<SearchResults> {
 }
 
 export default async function SearchPage({ searchParams }: { searchParams: { q: string } }) {
-  const awaitedSearchParams = await searchParams;
-  const query = awaitedSearchParams.q || '';
+  const query = searchParams.q || '';
   const results = await searchAll(query);
 
   return (

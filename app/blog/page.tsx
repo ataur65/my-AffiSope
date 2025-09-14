@@ -16,13 +16,7 @@ interface BlogPost {
   excerpt: string;
 }
 
-interface Product {
-  _id: string;
-  name: string;
-  image: string;
-  price: string;
-  url: string;
-}
+import { Product } from '@/types';
 
 interface HeroSettings {
   heading: string;
@@ -196,10 +190,10 @@ export default function BlogPage() {
                 <li key={product._id} className="flex items-center gap-3">
                   <Image src={product.image || '/img/placeholder.jpg'} alt={product.name || 'Recent product image'} width={64} height={64} className="w-16 h-16 rounded-lg object-cover" />
                   <div>
-                    <Link href={product.url} target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-gray-800 hover:text-blue-600">
+                    <Link href={product.url || `/product/${product._id}`} target={product.url ? "_blank" : "_self"} rel="noopener noreferrer" className="text-sm font-medium text-gray-800 hover:text-blue-600">
                       {product.name}
                     </Link>
-                    <p className="text-xs text-gray-500">€{parseFloat(product.price).toFixed(2)}</p>
+                    <p className="text-xs text-gray-500">€{product.price.toFixed(2)}</p>
                   </div>
                 </li>
               ))}

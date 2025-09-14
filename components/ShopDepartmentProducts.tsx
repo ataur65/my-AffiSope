@@ -1,30 +1,16 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-
-interface FashionProduct {
-  _id: string;
-  category: string;
-  name: string;
-  price: string;
-  image: string;
-  rating: number;
-  originalPrice: string | null;
-  isSale: boolean;
-  shopDepartment: string;
-  url: string;
-}
-
-
+import { Product } from '@/types';
 
 interface ShopDepartmentProductsProps {
-  items: FashionProduct[];
+  items: Product[];
   departmentName: string; // New prop for dynamic title
 }
 
 const ShopDepartmentProducts: React.FC<ShopDepartmentProductsProps> = ({ items, departmentName }) => {
   const [activeBrand, setActiveBrand] = useState('All');
-  const [filteredProducts, setFilteredProducts] = useState<FashionProduct[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
 
   useEffect(() => {
     let products = items;

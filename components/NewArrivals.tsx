@@ -2,18 +2,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-
-interface Product {
-  _id: string;
-  category: string;
-  name: string;
-  price: number;
-  image: string;
-  rating: number;
-  originalPrice: number | null;
-  isSale: boolean;
-  url: string; // Added url property
-}
+import { Product } from '@/types';
 
 interface NewArrivalsProps {
   items: Product[];
@@ -36,7 +25,7 @@ const NewArrivals: React.FC<NewArrivalsProps> = ({ items }) => {
                 </div>
               )}
               <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-80 transition-opacity duration-300">
-                <Link href={product.url} target="_blank" rel="noopener noreferrer" className="bg-[#f7931e] text-white text-sm font-semibold px-4 py-2 rounded-full hover:bg-orange-600 transition-colors">
+                <Link href={product.url || `/product/${product._id}`} target={product.url ? "_blank" : "_self"} rel="noopener noreferrer" className="bg-[#f7931e] text-white text-sm font-semibold px-4 py-2 rounded-full hover:bg-orange-600 transition-colors">
                   Buy Now
                 </Link>
                 <Link href={`/product/${product._id}`} className="bg-gray-700 text-white text-sm font-semibold px-4 py-2 rounded-full hover:bg-gray-600 transition-colors">
