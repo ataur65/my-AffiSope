@@ -3,7 +3,7 @@ import Image from 'next/image';
 import BlogPageTemplate from '@/components/BlogPageTemplate';
 import HandpickedItems from '@/components/HandpickedItems';
 
-// --- TYPE DEFINITIONS ---
+
 interface BlogPost {
   slug: string;
   category: string;
