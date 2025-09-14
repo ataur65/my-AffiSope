@@ -1,6 +1,30 @@
 "use client"
 
 import { useEffect, useState } from 'react';
+
+interface Product {
+  _id: string;
+  category: string;
+  name: string;
+  price: string;
+  image: string;
+  rating: number;
+  originalPrice: string | null;
+  isSale: boolean;
+  url: string;
+  shopDepartment?: string;
+  brand?: string;
+}
+
+interface BlogPost {
+  _id: string;
+  title: string;
+  excerpt: string;
+  image: string;
+  slug: string;
+  date: string;
+}
+
 import Header from "../components/Header";
 import HeroSection from "../components/HeroSection";
 import IconSection from "../components/IconSection";
@@ -27,9 +51,9 @@ export default function Home() {
         if (!response.ok) {
           throw new Error('Failed to fetch products');
         }
-        const data: { products: any[]; currentPage: number; totalPages: number; totalProducts: number } = await response.json();
+        const data: { products: Product[]; currentPage: number; totalPages: number; totalProducts: number } = await response.json();
         setProducts(data.products);
-      } catch (error) {
+      } catch (error: Error) {
         console.error('Error fetching products:', error);
       }
     };
@@ -45,7 +69,7 @@ export default function Home() {
         const data = await response.json();
         console.log('New Arrivals API response data:', data);
         setNewArrivals(data);
-      } catch (error) {
+      } catch (error: Error) {
         console.error('Error fetching new arrivals:', error);
       }
     };
@@ -58,7 +82,7 @@ export default function Home() {
         }
         const data = await response.json();
         setBlogPosts(data);
-      } catch (error) {
+      } catch (error: Error) {
         console.error('Error fetching blog posts:', error);
       }
     };
@@ -75,7 +99,7 @@ export default function Home() {
         const data = await response.json();
         console.log('Top Viewed Products API response data:', data);
         setTopViewedProducts(data);
-      } catch (error) {
+      } catch (error: Error) {
         console.error('Error fetching top viewed products:', error);
       }
     };
