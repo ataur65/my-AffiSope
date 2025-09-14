@@ -31,7 +31,7 @@ const CookieBanner = () => {
     <div className="fixed bottom-0 left-0 right-0 bg-gray-900 text-white p-4 z-50 shadow-lg">
       <div className="container mx-auto flex flex-col md:flex-row items-center justify-between">
         <p className="text-sm mb-4 md:mb-0 md:mr-4">
-          We use cookies to enhance your browsing experience and analyze our traffic. By clicking "Accept", you consent to our use of cookies. 
+          We use cookies to enhance your browsing experience and analyze our traffic. By clicking &quot;Accept&quot;, you consent to our use of cookies. 
           <Link href="/privacy-policy" className="underline hover:text-gray-300 ml-1">
             Learn more
           </Link>.
