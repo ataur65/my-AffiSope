@@ -3,9 +3,7 @@ import Image from 'next/image';
 import BlogPageTemplate from '@/components/BlogPageTemplate';
 import HandpickedItems from '@/components/HandpickedItems';
 import { Product } from '@/types';
-
-
-interface BlogPost {
+import { BlogPost } from '@/types';
 
 // --- DATA FETCHING FUNCTIONS ---
 async function getBlogPost(slug: string): Promise<BlogPost | null> {
@@ -74,7 +72,7 @@ async function getTopViewedProducts(): Promise<Product[]> {
   }
 }
 
-
+// --- METADATA AND STATIC PARAMS ---
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   const post = await getBlogPost(params.slug);
   if (!post) {

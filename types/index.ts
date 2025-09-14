@@ -17,3 +17,15 @@ export interface Product {
   reviewCount?: number;
   gallery?: string[];
 }
+
+export interface BlogPost {
+  _id: string;
+  slug: string;
+  category: string;
+  title: string;
+  date: string;
+  image: string;
+  excerpt: string;
+  content: string;
+  author: string;
+}
