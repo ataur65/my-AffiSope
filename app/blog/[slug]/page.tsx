@@ -3,6 +3,7 @@ import Image from 'next/image';
 import BlogPageTemplate from '@/components/BlogPageTemplate';
 import HandpickedItems from '@/components/HandpickedItems';
 
+// --- TYPE DEFINITIONS ---
 interface BlogPost {
   slug: string;
   category: string;
@@ -10,10 +11,26 @@ interface BlogPost {
   date: string;
   image: string;
   excerpt: string;
-  content: string; 
+  content: string;
   author: string;
 }
 
+interface Product {
+  _id: string;
+  name: string;
+  description: string;
+  price: number;
+  category: string;
+  brand: string;
+  image: string;
+  rating: number;
+  originalPrice?: number;
+  isSale: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+// --- DATA FETCHING FUNCTIONS ---
 async function getBlogPost(slug: string): Promise<BlogPost | null> {
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/blog/${slug}`, { cache: 'no-store' });
@@ -25,26 +42,6 @@ async function getBlogPost(slug: string): Promise<BlogPost | null> {
     console.error('Error fetching blog post:', error);
     return null;
   }
-}
-
-export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const post = await getBlogPost(params.slug);
-  if (!post) {
-    return {
-      title: 'Blog Post Not Found',
-      description: 'This blog post does not exist.',
-    };
-  }
-
-  return {
-    title: post.title,
-    description: post.excerpt,
-    openGraph: {
-      title: post.title,
-      description: post.excerpt,
-      images: [{ url: post.image }],
-    },
-  };
 }
 
 async function getBlogCategories(): Promise<string[]> {
@@ -85,27 +82,69 @@ async function getBlogPosts(): Promise<BlogPost[]> {
       console.error('Error fetching blog posts:', error);
       return [];
     }
+}
+
+async function getTopViewedProducts(): Promise<Product[]> {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/products/top-viewed`, { cache: 'no-store' });
+    if (!response.ok) {
+      return [];
+    }
+    return response.json();
+  } catch (error) {
+    console.error('Error fetching top viewed products:', error);
+    return [];
   }
+}
+
+// --- METADATA AND STATIC PARAMS ---
+export async function generateMetadata({ params }: { params: { slug: string } }) {
+  const post = await getBlogPost(params.slug);
+  if (!post) {
+    return {
+      title: 'Blog Post Not Found',
+      description: 'This blog post does not exist.',
+    };
+  }
+
+  return {
+    title: post.title,
+    description: post.excerpt,
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      images: [{ url: post.image }],
+    },
+  };
+}
 
 export async function generateStaticParams() {
     const posts = await getBlogPosts();
+    // Ensure posts is an array before mapping
+    if (!Array.isArray(posts)) {
+        return [];
+    }
     return posts.map((post) => ({
       slug: post.slug,
     }));
-  }
+}
 
+
+// --- PAGE COMPONENT (CORRECTED) ---
 export default async function SingleBlogPostPage({ params }: { params: { slug: string } }) {
-  const awaitedParams = await params;
-  const { slug } = awaitedParams;
-  const blogPost = await getBlogPost(slug);
+  const { slug } = params; // CORRECT: Directly get slug from params
+
+  // PERFORMANCE: Fetch all data in parallel
+  const [blogPost, categories, recentPosts, topViewedProducts] = await Promise.all([
+    getBlogPost(slug),
+    getBlogCategories(),
+    getRecentBlogPosts(),
+    getTopViewedProducts(),
+  ]);
 
   if (!blogPost) {
-    return <div>Blog post not found</div>; 
+    return <div>Blog post not found</div>;
   }
-
-  const categories = await getBlogCategories();
-  const recentPosts = await getRecentBlogPosts();
-  const topViewedProducts = await getTopViewedProducts();
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -179,32 +218,4 @@ export default async function SingleBlogPostPage({ params }: { params: { slug: s
         <HandpickedItems items={topViewedProducts} />
     </BlogPageTemplate>
   );
-}
-
-async function getTopViewedProducts(): Promise<Product[]> {
-  try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/products/top-viewed`, { cache: 'no-store' });
-    if (!response.ok) {
-      return [];
-    }
-    return response.json();
-  } catch (error) {
-    console.error('Error fetching top viewed products:', error);
-    return [];
-  }
-}
-
-interface Product {
-  _id: string;
-  name: string;
-  description: string;
-  price: number;
-  category: string;
-  brand: string;
-  image: string;
-  rating: number;
-  originalPrice?: number;
-  isSale: boolean;
-  createdAt: string;
-  updatedAt: string;
 }
